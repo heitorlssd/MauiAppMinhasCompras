@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="MauiAppMinhasCompras.Views.RelatorioCategoria"
+    Title="Relatório">
+
+    <Grid
+        RowDefinitions="Auto,*,Auto"
+        Padding="20"
+        RowSpacing="15">
+
+        <!-- Cabeçalho -->
+        <VerticalStackLayout
+            Grid.Row="0"
+            Spacing="4">
+
+            <Label
+                Text="Resumo de Gastos"
+                FontSize="26"
+                FontAttributes="Bold" />
+
+            <Label
+                Text="Total gasto em cada categoria"
+                FontSize="14"
+                Opacity="0.7" />
+
+        </VerticalStackLayout>
+
+        <!-- Categorias -->
+        <CollectionView
+            Grid.Row="1"
+            x:Name="lista_relatorio">
+
+            <CollectionView.EmptyView>
+
+                <VerticalStackLayout
+                    Padding="20"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center">
+
+                    <Label
+                        Text="Nenhum produto cadastrado."
+                        FontSize="16"
+                        Opacity="0.7"
+                        HorizontalTextAlignment="Center" />
+
+                </VerticalStackLayout>
+
+            </CollectionView.EmptyView>
+
+            <CollectionView.ItemTemplate>
+
+                <DataTemplate>
+
+                    <Border
+                        Margin="0,6"
+                        Padding="16"
+                        StrokeThickness="1">
+
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="14" />
+                        </Border.StrokeShape>
+
+                        <Grid
+                            ColumnDefinitions="*,Auto"
+                            ColumnSpacing="15">
+
+                            <VerticalStackLayout
+                                Grid.Column="0"
+                                Spacing="3">
+
+                                <Label
+                                    Text="{Binding Categoria}"
+                                    FontSize="18"
+                                    FontAttributes="Bold" />
+
+                                <Label
+                                    Text="Total da categoria"
+                                    FontSize="12"
+                                    Opacity="0.65" />
+
+                            </VerticalStackLayout>
+
+                            <Label
+                                Grid.Column="1"
+                                Text="{Binding TotalFormatado}"
+                                FontSize="18"
+                                FontAttributes="Bold"
+                                VerticalTextAlignment="Center" />
+
+                        </Grid>
+
+                    </Border>
+
+                </DataTemplate>
+
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+        <!-- Total geral -->
+        <Border
+            Grid.Row="2"
+            Padding="18"
+            StrokeThickness="1">
+
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="14" />
+            </Border.StrokeShape>
+
+            <Grid
+                ColumnDefinitions="*,Auto">
+
+                <Label
+                    Grid.Column="0"
+                    Text="Total Geral"
+                    FontSize="20"
+                    FontAttributes="Bold"
+                    VerticalTextAlignment="Center" />
+
+                <Label
+                    Grid.Column="1"
+                    x:Name="lbl_total_geral"
+                    Text="R$ 0,00"
+                    FontSize="22"
+                    FontAttributes="Bold"
+                    VerticalTextAlignment="Center" />
+
+            </Grid>
+
+        </Border>
+
+    </Grid>
+
+</ContentPage>

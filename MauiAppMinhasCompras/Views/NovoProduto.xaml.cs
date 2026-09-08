@@ -9,19 +9,87 @@ public partial class NovoProduto : ContentPage
         InitializeComponent();
     }
 
-    private async void Button_Clicked(object sender, EventArgs e)
+    private async void ToolbarItem_Clicked(
+        object sender,
+        EventArgs e)
     {
-        Produto p = new Produto
+        try
         {
-            Descricao = txt_descricao.Text,
-            Quantidade = Convert.ToDouble(txt_quantidade.Text),
-            Preco = Convert.ToDouble(txt_preco.Text)
-        };
+            if (string.IsNullOrWhiteSpace(txt_descricao.Text))
+            {
+                await DisplayAlertAsync(
+                    "Atenção",
+                    "Informe a descrição do produto.",
+                    "OK"
+                );
 
-        await App.Db.Insert(p);
+                return;
+            }
 
-        await DisplayAlert("Sucesso", "Produto cadastrado!", "OK");
+            if (string.IsNullOrWhiteSpace(txt_quantidade.Text))
+            {
+                await DisplayAlertAsync(
+                    "Atenção",
+                    "Informe a quantidade.",
+                    "OK"
+                );
 
-        await Navigation.PopAsync();
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(txt_preco.Text))
+            {
+                await DisplayAlertAsync(
+                    "Atenção",
+                    "Informe o preço.",
+                    "OK"
+                );
+
+                return;
+            }
+
+            if (pck_categoria.SelectedItem == null)
+            {
+                await DisplayAlertAsync(
+                    "Atenção",
+                    "Selecione uma categoria.",
+                    "OK"
+                );
+
+                return;
+            }
+
+            Produto p = new Produto
+            {
+                Descricao = txt_descricao.Text,
+
+                Quantidade =
+                    Convert.ToDouble(txt_quantidade.Text),
+
+                Preco =
+                    Convert.ToDouble(txt_preco.Text),
+
+                Categoria =
+                    pck_categoria.SelectedItem.ToString()!
+            };
+
+            await App.Db.Insert(p);
+
+            await DisplayAlertAsync(
+                "Sucesso!",
+                "Produto cadastrado.",
+                "OK"
+            );
+
+            await Navigation.PopAsync();
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlertAsync(
+                "Ops",
+                ex.Message,
+                "OK"
+            );
+        }
     }
 }

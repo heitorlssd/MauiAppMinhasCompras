@@ -1,37 +1,143 @@
 <?xml version="1.0" encoding="utf-8" ?>
+
 <ContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="MauiAppMinhasCompras.Views.NovoProduto"
     Title="Novo Produto">
 
-    <VerticalStackLayout
-        Padding="20"
-        Spacing="15">
-
-        <Label
-            Text="Cadastrar Produto"
-            FontSize="24"
-            FontAttributes="Bold"/>
-
-        <Entry
-            x:Name="txt_descricao"
-            Placeholder="Descrição do produto"/>
-
-        <Entry
-            x:Name="txt_quantidade"
-            Placeholder="Quantidade"
-            Keyboard="Numeric"/>
-
-        <Entry
-            x:Name="txt_preco"
-            Placeholder="Preço"
-            Keyboard="Numeric"/>
-
-        <Button
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
             Text="Salvar"
-            Clicked="Button_Clicked"/>
+            Clicked="ToolbarItem_Clicked" />
+    </ContentPage.ToolbarItems>
 
-    </VerticalStackLayout>
+    <ScrollView>
+
+        <VerticalStackLayout
+            Padding="20"
+            Spacing="18">
+
+            <!-- Título -->
+            <VerticalStackLayout Spacing="4">
+
+                <Label
+                    Text="Cadastrar produto"
+                    FontSize="24"
+                    FontAttributes="Bold" />
+
+                <Label
+                    Text="Preencha as informações abaixo."
+                    FontSize="14"
+                    Opacity="0.7" />
+
+            </VerticalStackLayout>
+
+            <!-- Descrição -->
+            <VerticalStackLayout Spacing="6">
+
+                <Label
+                    Text="Descrição"
+                    FontAttributes="Bold" />
+
+                <Border
+                    Padding="12,4"
+                    StrokeThickness="1">
+
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10" />
+                    </Border.StrokeShape>
+
+                    <Entry
+                        x:Name="txt_descricao"
+                        Placeholder="Ex.: Arroz"
+                        ClearButtonVisibility="WhileEditing" />
+
+                </Border>
+
+            </VerticalStackLayout>
+
+            <!-- Quantidade -->
+            <VerticalStackLayout Spacing="6">
+
+                <Label
+                    Text="Quantidade"
+                    FontAttributes="Bold" />
+
+                <Border
+                    Padding="12,4"
+                    StrokeThickness="1">
+
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10" />
+                    </Border.StrokeShape>
+
+                    <Entry
+                        x:Name="txt_quantidade"
+                        Placeholder="Ex.: 2"
+                        Keyboard="Numeric" />
+
+                </Border>
+
+            </VerticalStackLayout>
+
+            <!-- Preço -->
+            <VerticalStackLayout Spacing="6">
+
+                <Label
+                    Text="Preço unitário"
+                    FontAttributes="Bold" />
+
+                <Border
+                    Padding="12,4"
+                    StrokeThickness="1">
+
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10" />
+                    </Border.StrokeShape>
+
+                    <Entry
+                        x:Name="txt_preco"
+                        Placeholder="Ex.: 25,90"
+                        Keyboard="Numeric" />
+
+                </Border>
+
+            </VerticalStackLayout>
+
+            <!-- Categoria -->
+            <VerticalStackLayout Spacing="6">
+
+                <Label
+                    Text="Categoria"
+                    FontAttributes="Bold" />
+
+                <Border
+                    Padding="12,4"
+                    StrokeThickness="1">
+
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10" />
+                    </Border.StrokeShape>
+
+                    <Picker
+                        x:Name="pck_categoria"
+                        Title="Selecione uma categoria">
+
+                        <Picker.Items>
+                            <x:String>Alimentos</x:String>
+                            <x:String>Higiene</x:String>
+                            <x:String>Limpeza</x:String>
+                        </Picker.Items>
+
+                    </Picker>
+
+                </Border>
+
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+
+    </ScrollView>
 
 </ContentPage>

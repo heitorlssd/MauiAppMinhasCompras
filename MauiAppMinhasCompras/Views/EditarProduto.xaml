@@ -12,27 +12,132 @@
             Clicked="ToolbarItem_Clicked" />
     </ContentPage.ToolbarItems>
 
-    <VerticalStackLayout
-        Padding="20"
-        Spacing="15">
+    <ScrollView>
 
-        <Entry
-            x:Name="txt_descricao"
-            Placeholder="Descrição"
-            Text="{Binding Descricao}" />
+        <VerticalStackLayout
+            Padding="20"
+            Spacing="18">
 
-        <Entry
-            x:Name="txt_quantidade"
-            Placeholder="Quantidade"
-            Keyboard="Numeric"
-            Text="{Binding Quantidade}" />
+            <VerticalStackLayout Spacing="4">
 
-        <Entry
-            x:Name="txt_preco"
-            Placeholder="Preço"
-            Keyboard="Numeric"
-            Text="{Binding Preco}" />
+                <Label
+                    Text="Editar produto"
+                    FontSize="24"
+                    FontAttributes="Bold" />
 
-    </VerticalStackLayout>
+                <Label
+                    Text="Altere somente as informações necessárias."
+                    FontSize="14"
+                    Opacity="0.7" />
+
+            </VerticalStackLayout>
+
+            <!-- Descrição -->
+            <VerticalStackLayout Spacing="6">
+
+                <Label
+                    Text="Descrição"
+                    FontAttributes="Bold" />
+
+                <Border
+                    Padding="12,4"
+                    StrokeThickness="1">
+
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10" />
+                    </Border.StrokeShape>
+
+                    <Entry
+                        x:Name="txt_descricao"
+                        Text="{Binding Descricao}"
+                        ClearButtonVisibility="WhileEditing" />
+
+                </Border>
+
+            </VerticalStackLayout>
+
+            <!-- Quantidade -->
+            <VerticalStackLayout Spacing="6">
+
+                <Label
+                    Text="Quantidade"
+                    FontAttributes="Bold" />
+
+                <Border
+                    Padding="12,4"
+                    StrokeThickness="1">
+
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10" />
+                    </Border.StrokeShape>
+
+                    <Entry
+                        x:Name="txt_quantidade"
+                        Text="{Binding Quantidade}"
+                        Keyboard="Numeric" />
+
+                </Border>
+
+            </VerticalStackLayout>
+
+            <!-- Preço -->
+            <VerticalStackLayout Spacing="6">
+
+                <Label
+                    Text="Preço unitário"
+                    FontAttributes="Bold" />
+
+                <Border
+                    Padding="12,4"
+                    StrokeThickness="1">
+
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10" />
+                    </Border.StrokeShape>
+
+                    <Entry
+                        x:Name="txt_preco"
+                        Text="{Binding Preco}"
+                        Keyboard="Numeric" />
+
+                </Border>
+
+            </VerticalStackLayout>
+
+            <!-- Categoria -->
+            <VerticalStackLayout Spacing="6">
+
+                <Label
+                    Text="Categoria"
+                    FontAttributes="Bold" />
+
+                <Border
+                    Padding="12,4"
+                    StrokeThickness="1">
+
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10" />
+                    </Border.StrokeShape>
+
+                    <Picker
+                        x:Name="pck_categoria"
+                        Title="Selecione uma categoria"
+                        SelectedItem="{Binding Categoria}">
+
+                        <Picker.Items>
+                            <x:String>Alimentos</x:String>
+                            <x:String>Higiene</x:String>
+                            <x:String>Limpeza</x:String>
+                        </Picker.Items>
+
+                    </Picker>
+
+                </Border>
+
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+
+    </ScrollView>
 
 </ContentPage>

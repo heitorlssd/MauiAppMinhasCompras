@@ -6,97 +6,139 @@
     x:Class="MauiAppMinhasCompras.Views.ListaProduto"
     Title="Minhas Compras">
 
-    <!-- Botão Adicionar -->
     <ContentPage.ToolbarItems>
+
         <ToolbarItem
             Text="Adicionar"
             Clicked="ToolbarItem_Clicked" />
+
+        <ToolbarItem
+            Text="Relatório"
+            Clicked="Relatorio_Clicked" />
+
     </ContentPage.ToolbarItems>
 
     <Grid
-        RowDefinitions="Auto,Auto,*"
+        RowDefinitions="Auto,Auto,Auto,*"
         Padding="12,0">
 
-        <!-- Barra de pesquisa -->
+        <!-- Busca -->
         <SearchBar
             Grid.Row="0"
             x:Name="txt_search"
-            Placeholder="Busca de Produtos"
-            TextChanged="txt_search_TextChanged" />
+            Placeholder="Buscar produto"
+            TextChanged="txt_search_TextChanged"
+            Margin="0,5" />
 
-        <!-- Cabeçalho das colunas -->
-        <Grid
+        <!-- Filtro por categoria -->
+        <Picker
             Grid.Row="1"
-            ColumnDefinitions="*,2*,*,*"
-            Margin="0,5,0,8">
+            x:Name="pck_filtro_categoria"
+            Title="Filtrar por categoria"
+            SelectedIndexChanged="pck_filtro_categoria_SelectedIndexChanged"
+            Margin="0,0,0,10">
+
+            <Picker.Items>
+                <x:String>Todas</x:String>
+                <x:String>Alimentos</x:String>
+                <x:String>Higiene</x:String>
+                <x:String>Limpeza</x:String>
+            </Picker.Items>
+
+        </Picker>
+
+        <!-- Cabeçalho -->
+        <Grid
+            Grid.Row="2"
+            ColumnDefinitions="2*,1.2*,0.8*,1.4*"
+            Padding="8,8"
+            ColumnSpacing="10">
 
             <Label
                 Grid.Column="0"
-                Text="ID"
-                FontAttributes="Bold" />
-
-            <Label
-                Grid.Column="1"
                 Text="Descrição"
                 FontAttributes="Bold" />
 
             <Label
-                Grid.Column="2"
+                Grid.Column="1"
                 Text="Preço"
-                FontAttributes="Bold" />
+                FontAttributes="Bold"
+                HorizontalTextAlignment="End" />
+
+            <Label
+                Grid.Column="2"
+                Text="Qtd."
+                FontAttributes="Bold"
+                HorizontalTextAlignment="Center" />
 
             <Label
                 Grid.Column="3"
-                Text="Qtd."
-                FontAttributes="Bold" />
+                Text="Categoria"
+                FontAttributes="Bold"
+                HorizontalTextAlignment="Center" />
 
         </Grid>
 
-        <!-- Lista de produtos -->
+        <!-- Produtos -->
         <ListView
-            Grid.Row="2"
+            Grid.Row="3"
             x:Name="lst_produtos"
-            ItemSelected="lst_produtos_ItemSelected">
+            ItemSelected="lst_produtos_ItemSelected"
+            SeparatorVisibility="Default">
 
             <ListView.ItemTemplate>
+
                 <DataTemplate>
 
                     <ViewCell>
 
-                        <!-- Menu ao deslizar o item -->
                         <ViewCell.ContextActions>
+
                             <MenuItem
                                 Text="Remover"
                                 Clicked="MenuItem_Clicked"
                                 IsDestructive="True" />
+
                         </ViewCell.ContextActions>
 
-                        <!-- Dados de cada produto -->
                         <Grid
-                            ColumnDefinitions="*,2*,*,*"
-                            Padding="0,10">
+                            ColumnDefinitions="2*,1.2*,0.8*,1.4*"
+                            Padding="8,12"
+                            ColumnSpacing="10">
 
+                            <!-- Descrição -->
                             <Label
                                 Grid.Column="0"
-                                Text="{Binding Id}" />
+                                Text="{Binding Descricao}"
+                                VerticalTextAlignment="Center" />
 
+                            <!-- Preço -->
                             <Label
                                 Grid.Column="1"
-                                Text="{Binding Descricao}" />
+                                Text="{Binding Preco, StringFormat='{0:C}'}"
+                                HorizontalTextAlignment="End"
+                                VerticalTextAlignment="Center" />
 
+                            <!-- Quantidade -->
                             <Label
                                 Grid.Column="2"
-                                Text="{Binding Preco}" />
+                                Text="{Binding Quantidade, StringFormat='{0:0.##}'}"
+                                HorizontalTextAlignment="Center"
+                                VerticalTextAlignment="Center" />
 
+                            <!-- Categoria -->
                             <Label
                                 Grid.Column="3"
-                                Text="{Binding Quantidade}" />
+                                Text="{Binding Categoria}"
+                                HorizontalTextAlignment="Center"
+                                VerticalTextAlignment="Center" />
 
                         </Grid>
 
                     </ViewCell>
 
                 </DataTemplate>
+
             </ListView.ItemTemplate>
 
         </ListView>

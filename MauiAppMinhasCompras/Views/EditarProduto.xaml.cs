@@ -15,8 +15,63 @@ public partial class EditarProduto : ContentPage
     {
         try
         {
-            Produto produto_anexado =
+            Produto? produto_anexado =
                 BindingContext as Produto;
+
+            if (produto_anexado == null)
+            {
+                await DisplayAlertAsync(
+                    "Ops",
+                    "Não foi possível identificar o produto.",
+                    "OK"
+                );
+
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(txt_descricao.Text))
+            {
+                await DisplayAlertAsync(
+                    "Atenção",
+                    "Informe a descrição do produto.",
+                    "OK"
+                );
+
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(txt_quantidade.Text))
+            {
+                await DisplayAlertAsync(
+                    "Atenção",
+                    "Informe a quantidade.",
+                    "OK"
+                );
+
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(txt_preco.Text))
+            {
+                await DisplayAlertAsync(
+                    "Atenção",
+                    "Informe o preço.",
+                    "OK"
+                );
+
+                return;
+            }
+
+            if (pck_categoria.SelectedItem == null)
+            {
+                await DisplayAlertAsync(
+                    "Atenção",
+                    "Selecione uma categoria.",
+                    "OK"
+                );
+
+                return;
+            }
 
             Produto p = new Produto
             {
@@ -26,21 +81,20 @@ public partial class EditarProduto : ContentPage
                     txt_descricao.Text,
 
                 Quantidade =
-                    Convert.ToDouble(
-                        txt_quantidade.Text
-                    ),
+                    Convert.ToDouble(txt_quantidade.Text),
 
                 Preco =
-                    Convert.ToDouble(
-                        txt_preco.Text
-                    )
+                    Convert.ToDouble(txt_preco.Text),
+
+                Categoria =
+                    pck_categoria.SelectedItem.ToString()!
             };
 
             await App.Db.Update(p);
 
             await DisplayAlertAsync(
                 "Sucesso!",
-                "Registro Atualizado",
+                "Registro atualizado.",
                 "OK"
             );
 
