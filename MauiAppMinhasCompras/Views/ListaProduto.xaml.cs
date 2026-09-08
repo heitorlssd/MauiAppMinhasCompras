@@ -18,45 +18,152 @@ public partial class ListaProduto : ContentPage
     {
         base.OnAppearing();
 
-        List<Produto> produtos = await App.Db.GetAll();
-
-        lista.Clear();
-
-        foreach (Produto p in produtos)
+        try
         {
-            lista.Add(p);
+            List<Produto> produtos = await App.Db.GetAll();
+
+            lista.Clear();
+
+            foreach (Produto p in produtos)
+            {
+                lista.Add(p);
+            }
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert(
+                "Ops",
+                ex.Message,
+                "OK"
+            );
         }
     }
 
-    private void ToolbarItem_Clicked(
-        object sender,
-        EventArgs e)
+    private async void ToolbarItem_Clicked(
+    object sender,
+    EventArgs e)
     {
-        Navigation.PushAsync(new NovoProduto());
+        try
+        {
+            await Navigation.PushAsync(
+                new NovoProduto()
+            );
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert(
+                "Ops",
+                ex.Message,
+                "OK"
+            );
+        }
     }
 
     private async void txt_search_TextChanged(
-        object sender,
-        TextChangedEventArgs e)
+    object sender,
+    TextChangedEventArgs e)
     {
-        string q = e.NewTextValue;
-
-        lista.Clear();
-
-        List<Produto> produtos;
-
-        if (string.IsNullOrWhiteSpace(q))
+        try
         {
-            produtos = await App.Db.GetAll();
+            string q = e.NewTextValue;
+
+            lista.Clear();
+
+            List<Produto> produtos;
+
+            if (string.IsNullOrWhiteSpace(q))
+            {
+                produtos = await App.Db.GetAll();
+            }
+            else
+            {
+                produtos = await App.Db.Search(q);
+            }
+
+            foreach (Produto p in produtos)
+            {
+                lista.Add(p);
+            }
         }
-        else
+        catch (Exception ex)
         {
-            produtos = await App.Db.Search(q);
+            await DisplayAlert(
+                "Ops",
+                ex.Message,
+                "OK"
+            );
         }
+    }
 
-        foreach (Produto p in produtos)
+    private async void MenuItem_Clicked(
+    object sender,
+    EventArgs e)
+    {
+        try
         {
-            lista.Add(p);
+            MenuItem item = sender as MenuItem;
+
+            Produto produto =
+                item.BindingContext as Produto;
+
+            bool resposta = await DisplayAlert(
+                "Atenção",
+                $"Deseja remover {produto.Descricao}?",
+                "Sim",
+                "Não"
+            );
+
+            if (resposta)
+            {
+                await App.Db.Delete(produto.Id);
+
+                lista.Remove(produto);
+
+                await DisplayAlert(
+                    "Sucesso!",
+                    "Produto removido.",
+                    "OK"
+                );
+            }
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert(
+                "Ops",
+                ex.Message,
+                "OK"
+            );
+        }
+    }
+
+    private async void lst_produtos_ItemSelected(
+    object sender,
+    SelectedItemChangedEventArgs e)
+    {
+        try
+        {
+            Produto produto =
+                e.SelectedItem as Produto;
+
+            if (produto == null)
+                return;
+
+            await Navigation.PushAsync(
+                new EditarProduto
+                {
+                    BindingContext = produto
+                }
+            );
+
+            lst_produtos.SelectedItem = null;
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert(
+                "Ops",
+                ex.Message,
+                "OK"
+            );
         }
     }
 }
