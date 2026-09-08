@@ -38,7 +38,7 @@ public partial class EditarProduto : ContentPage
 
             await App.Db.Update(p);
 
-            await DisplayAlert(
+            await DisplayAlertAsync(
                 "Sucesso!",
                 "Registro Atualizado",
                 "OK"
@@ -48,7 +48,7 @@ public partial class EditarProduto : ContentPage
         }
         catch (Exception ex)
         {
-            await DisplayAlert(
+            await DisplayAlertAsync(
                 "Ops",
                 ex.Message,
                 "OK"
